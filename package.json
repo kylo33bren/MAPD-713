@@ -1,0 +1,21 @@
+{
+  "name": "713_assignmnt1",
+  "version": "1.0.0",
+  "description": "Server HTTP Assignment",
+  "main": "index.js",
+  "scripts": {
+    "test": "test:grunt validate --verbose", 
+    "start": "node index.js"
+  },
+  "author": "Brendan Rodrigues 301119016",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.14.1",
+    "debug": "^2.2.0",
+    "express": "^4.13.3",
+    "seneca": "^2.0.0",
+    "seneca-entity": "^1.3.0",
+    "seneca-mongo-store": "^0.2.0",
+    "type-is": "^1.6.10"
+  }
+}
