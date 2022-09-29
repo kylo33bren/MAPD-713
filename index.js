@@ -54,3 +54,27 @@ seneca.act('role:web', {
     }
 })
 
+let countGET=0
+let countPOST=0
+
+function countRequests(req,res,next){
+    if (req.method === "GET") countGET++
+    if (req.method === "POST") countPOST++
+    console.log(req.METHODS)
+    console.log("GET count: " + countGET + " , POST count: " + countPOST)
+    if(next)next()
+}
+var express = require('express');
+var app = express();
+app.use (countRequests)
+app.use(require("body-parser").json())
+app.use(seneca.export('web'))
+
+
+
+app.listen(3009)
+console.log("Server listening on localhost:3009 ...");
+console.log("----- Requests -------------------------");
+console.log("http://localhost:3009/products/add-product?product=Laptop&price=201.99&category=PC");
+console.log("http://localhost:3009/products/get-all-products")
+//console.log("http://localhost:3009/products/delete-all-products")
