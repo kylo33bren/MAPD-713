@@ -42,3 +42,15 @@ seneca.add('role:api, cmd:get-all-products', function (args, done) {
         done(err, msg)
     })
 })
+seneca.act('role:web', {
+    use: {
+        prefix: '/products',
+        pin: { role: 'api', cmd: '*' },
+        map: {
+            'add-product': { GET: true, POST: true },
+            'get-all-products': { GET: true, }
+            
+        }
+    }
+})
+
