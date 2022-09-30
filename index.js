@@ -10,9 +10,11 @@ var plugin =function (options) {
     })
 
     // delete all sequencially
-   /* seneca.add({role:'product', cmd:'delete-all'}, function(msg,respond){
+   seneca.add({role:'product', cmd:'delete-all'}, function(msg,respond){
         this.make('product').remove$({},respond)
-    })*/
+    })
+
+   
 }
 
 module.export = plugin
@@ -42,13 +44,23 @@ seneca.add('role:api, cmd:get-all-products', function (args, done) {
         done(err, msg)
     })
 })
+
+seneca.add('role:api, cmd:delete-all-products', function (args, done) {
+    console.log("--> cmd:delete-all-products")
+    seneca.act({role: 'product', cmd: "delete-all" }, function (err,msg){
+        console.log(msg)
+        done(err, msg)
+    })
+})
+
 seneca.act('role:web', {
     use: {
         prefix: '/products',
         pin: { role: 'api', cmd: '*' },
         map: {
             'add-product': { GET: true, POST: true },
-            'get-all-products': { GET: true, }
+            'get-all-products': { GET: true},
+            'delete-all-products':{GET:true, POST: true}
             
         }
     }
@@ -77,4 +89,4 @@ console.log("Server listening on localhost:3009 ...");
 console.log("----- Requests -------------------------");
 console.log("http://localhost:3009/products/add-product?product=Laptop&price=201.99&category=PC");
 console.log("http://localhost:3009/products/get-all-products")
-//console.log("http://localhost:3009/products/delete-all-products")
+console.log("http://localhost:3009/products/delete-all-products")
